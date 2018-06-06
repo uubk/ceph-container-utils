@@ -18,4 +18,5 @@ if [ -d "/var/lib/ceph/mon/ceph-$ID" ] ; then
 	fi
 fi
 
+cd /
 /entrypoint.sh
