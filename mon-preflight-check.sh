@@ -2,7 +2,7 @@
 
 cd /var/lib/ceph/mon
 ID="$(echo ce* | sed 's/^ceph-//g')"
-if [ -n "$ID" ] ; then
+if [ -d "/var/lib/ceph/mon/ceph-$ID" ] ; then
 	ceph-mon -i $ID --extract-monmap /tmp/monmap
 	MONIP=$(monmaptool --print /tmp/monmap | grep mon.$ID | awk '{print $2}' | awk -F: '{print $1}')
 	MYIP=$(ip addr show dev eth0 | grep "inet " | awk '{print $2}' | awk -F/ '{print $1}')
@@ -18,4 +18,4 @@ if [ -n "$ID" ] ; then
 	fi
 fi
 
-exec /entrypoint.sh "${@:2}"
+/entrypoint.sh
